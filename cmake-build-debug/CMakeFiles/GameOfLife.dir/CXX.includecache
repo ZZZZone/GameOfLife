@@ -15,8 +15,6 @@ cstdlib
 -
 zconf.h
 -
-unistd.h
--
-syswait.h
+termios.h
 -
 
