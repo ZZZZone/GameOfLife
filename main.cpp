@@ -2,6 +2,7 @@
 #include <vector>
 #include <cstdlib>
 #include <zconf.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -18,6 +19,23 @@ vector<vector<bool> >Init(){
 //        }
 //    }
 
+    vector<vector<bool>> mp({{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,1,1,1,0,0,0,1,1,1,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,1,0,0,0,0,1,0,1,0,0,0,0,1,0},
+            {0,1,0,0,0,0,1,0,1,0,0,0,0,1,0},
+            {0,1,0,0,0,0,1,0,1,0,0,0,0,1,0},
+            {0,0,0,1,1,1,0,0,0,1,1,1,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,1,1,1,0,0,0,1,1,1,0,0,0},
+            {0,1,0,0,0,0,1,0,1,0,0,0,0,1,0},
+            {0,1,0,0,0,0,1,0,1,0,0,0,0,1,0},
+            {0,1,0,0,0,0,1,0,1,0,0,0,0,1,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,1,1,1,0,0,0,1,1,1,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}});
+
+/*
     vector<vector<bool>> mp({{0,0,0,0,0,0,0,0,0},
                              {0,0,0,1,0,1,0,0,0},
                              {0,0,0,1,0,1,0,0,0},
@@ -27,6 +45,7 @@ vector<vector<bool> >Init(){
                              {0,0,0,1,0,1,0,0,0},
                              {0,0,0,1,0,1,0,0,0},
                              {0,0,0,0,0,0,0,0,0}});
+    */
     return mp;
 }
 
@@ -35,7 +54,7 @@ void Show(vector<vector<bool> >& mp){
     for(int i = 0; i < Size; i++){
         for(int j = 0; j < Size; j++){
             if(mp[i][j]) printf("X");
-            else printf(" ");
+            else printf(".");
         }
         printf("\n");
     }
@@ -65,12 +84,13 @@ vector<vector<bool> > nextStep(vector<vector<bool> >& mp,bool &IfAlive){
             int AliveCnt = getAliveCnt(row, col, mp);
             if(AliveCnt == 3) nxt[row][col]=true;
             else if(AliveCnt != 2) nxt[row][col] = false;
+            else if(AliveCnt == 2) nxt[row][col] = mp[row][col];
         }
     }
     return nxt;
 }
 
-void Play(vector<vector<bool> >& mp){
+void Play(vector<vector<bool> >& mp, const int& sleepTime){
     int loopTime = 0;
     int Size = (int)mp.size();
     while(true){
@@ -80,12 +100,14 @@ void Play(vector<vector<bool> >& mp){
         mp = nextStep(mp,IfAlive);
         loopTime++;
         if(!IfAlive||loopTime >= 1000000) break;
-        sleep(10);
+        usleep(sleepTime);
     }
 }
 
 int main() {
     vector<vector<bool> > mp = Init();
-    Play(mp);
+    cout << getAliveCnt(1, 4, mp) << endl;
+    int sleepTime = 1000000;
+    Play(mp, sleepTime);
     return 0;
 }
