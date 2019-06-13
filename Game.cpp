@@ -77,6 +77,7 @@ void Game::SetPatternMode() {
 	for (int i = 0; i < (int)patternNames.size(); ++i) {
 		cout << i + 1 << "." << patternNames[i].c_str() <<"\n"<< endl;
 	}
+	cout << to_string(patternNames.size() + 1)<<".自定义模式\n";
 	cout << "选择：";
 
 	int getMode = 0;
@@ -84,6 +85,34 @@ void Game::SetPatternMode() {
 	if (getMode > 0 && getMode <= (int)patternNames.size()) {
 		patternMode = getMode;
 	}
+	else if(getMode == patternNames.size() + 1){
+		patternMode = getMode;
+		initPattern.setCustomPattern(CustomPattern());
+	}
+}
+
+vector<vector<bool>> Game::CustomPattern() {
+	system("cls");
+	cout << "输入矩阵长度（小于" << MapLength << ");";
+	int inputSize;
+	cin >> inputSize;
+	if (inputSize < 3) inputSize = 3;
+	if (inputSize > MapLength) inputSize = MapLength;
+	vector<vector<bool> > pattern(inputSize, vector<bool>(inputSize, false));
+	while (true) {
+		cout << "请输入坐标X" << endl;
+		int x, y;
+		cin >> x;
+		cout << "请输入坐标Y" << endl;
+		cin >> y;
+		if(!(x<0||y<0||x>=inputSize||y>=inputSize)) pattern[x][y] = true;
+		cout << "按任意键继续输入， q键结束输入" << endl;
+		while (!_kbhit()) {};
+		char op = _getch();
+		if (op == 'q') break;
+		
+	}
+	return pattern;
 }
 
 void Game::SetEvolutionSpeed() {

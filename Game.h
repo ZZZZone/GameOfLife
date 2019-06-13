@@ -5,6 +5,7 @@
 #include"InitPattern.h"
 #include"Draw.h"
 #include<conio.h>
+#include<string>
 
 using namespace std;
 
@@ -25,5 +26,6 @@ private:
 	void SetEvolutionSpeed();
 	void IntroduceGame();
 	void PrintPattern(vector<vector<bool>> &pattern);
+	vector<vector<bool>> CustomPattern();
 };
 

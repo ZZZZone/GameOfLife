@@ -16,10 +16,16 @@ vector<vector<bool>> InitPattern::getPattern(int mode) {
 		return Pattern4();
 	case 5:
 		return Pattern5();
+	case 6:
+		return CustomPattern;
 	default:
 		break;
 	}
 	return vector<vector<bool>>();
+}
+
+void InitPattern::setCustomPattern(vector<vector<bool>> pattern) {
+	CustomPattern = pattern;
 }
 
 vector<vector<bool>> InitPattern::Pattern1() {
