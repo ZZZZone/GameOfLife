@@ -27,5 +27,5 @@ void Draw::DrawPattern(vector<vector<bool>> &pattern) {
 		}
 	}
 	
-	outtextxy(MapLength / 20, MapLength - MapLength / 20 ,"按A键减速，按D键加速，按空格键返回主界面");
+	outtextxy(MapLength / 20, MapLength - MapLength / 20 ,"按A键减速，按D键加速，按回车键返回主界面");
 }
